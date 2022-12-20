@@ -10,8 +10,9 @@ import {
   Platform,
   Keyboard,
   TouchableWithoutFeedback,
+  Button
 } from "react-native";
-import colors from "../theme";
+import colors from "../../theme";
 import { useFonts } from "expo-font";
 
 const initialState = {
@@ -20,14 +21,14 @@ const initialState = {
   password: "",
 };
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({navigation}) {
   const [state, setState] = useState(initialState);
 
-  const [fontLoaded] = useFonts({
-    Regular: require("../assets/fonts/RobotoRegular.ttf"),
-    Medium: require("../assets/fonts/RobotoMedium.ttf"),
-  });
-  if (!fontLoaded) return null;
+  // const [fontLoaded] = useFonts({
+  //   Regular: require("../../assets/fonts/RobotoRegular.ttf"),
+  //   Medium: require("../../assets/fonts/RobotoMedium.ttf"),
+  // });
+  // if (!fontLoaded) return null;
 
   const addInputValue = (name, value) => {
     setState((prevState) => ({ ...prevState, [name]: value }));
@@ -46,7 +47,7 @@ export default function RegistrationScreen() {
     >
       <ImageBackground
         style={styles.image}
-        source={require("../assets/background.jpeg")}
+        source={require("../../assets/background.jpeg")}
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.box}>
@@ -82,9 +83,9 @@ export default function RegistrationScreen() {
               activeOpacity={0.8}
               style={styles.button}
             >
-              <Text style={styles.buttonText}>Зареєструватися</Text>
+              <Text onPress={() => navigation.navigate('Home')} style={styles.buttonText}>Зареєструватися</Text>
             </TouchableOpacity>
-            <Text style={styles.textLogIn}>Вже є акаунт? Ввійти</Text>
+            <Text onPress={() => navigation.navigate('Login')} style={styles.textLogIn}>Вже є акаунт? Ввійти</Text>
           </View>
         </TouchableWithoutFeedback>
       </ImageBackground>
