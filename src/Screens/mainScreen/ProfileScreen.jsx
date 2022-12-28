@@ -5,7 +5,7 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import colors from '../../theme';
+import colors from "../../../theme";
 
 
 export default function ProfileScreen() {
@@ -14,11 +14,11 @@ export default function ProfileScreen() {
     <>
       <ImageBackground
         style={styles.image}
-        source={require('../../assets/background.jpeg')}
+        source={require('../../../assets/background.jpeg')}
       >
         <View style={styles.box}>
     
-          <Text style={styles.nameUser}>ProfileScreen</Text>
+          <Text style={styles.text}>ProfileScreen</Text>
         </View>
       </ImageBackground>
     </>
@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     backgroundColor: colors.primaryBg,
   },
-  nameUser: {
+  text: {
     alignSelf: 'center',
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 16,
     color: colors.primaryText,
   }
 });

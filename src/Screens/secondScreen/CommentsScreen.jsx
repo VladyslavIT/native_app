@@ -1,5 +1,5 @@
 import { StyleSheet, TextInput, View, TouchableOpacity } from "react-native";
-import colors from "../../theme";
+import colors from "../../../theme";
 
 export default function CommentsScreen() {
   return (
@@ -26,21 +26,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 100,
-    borderColor: colors.secondaryText,
     borderWidth: 1,
+    borderColor: colors.secondaryText,
+    
   },
   input: {
     flex: 1,
-    padding: 16,
+    padding: 8,
     fontSize: 16,
   },
   button: {
-    marginRight: 8,
-    backgroundColor: colors.accent,
-    height: 34,
-    width: 34,
-    borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
+    height: 24,
+    width: 24,
+    marginRight: 8,
+    borderRadius: 100,
+    
+    backgroundColor: colors.accent,
   },
 });

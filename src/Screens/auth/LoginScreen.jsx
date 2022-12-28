@@ -12,7 +12,7 @@ import {
   TouchableWithoutFeedback,
   Button
 } from "react-native";
-import colors from "../../theme";
+import colors from "../../../theme";
 import { useFonts } from "expo-font";
 
 const initialState = {
@@ -47,7 +47,7 @@ export default function LoginScreen({navigation}) {
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <ImageBackground
           style={styles.image}
-          source={require("../../assets/background.jpeg")}
+          source={require("../../../assets/background.jpeg")}
         >
           <View style={styles.box}>
             <Text style={styles.title}>Вхід</Text>
