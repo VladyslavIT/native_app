@@ -5,6 +5,8 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useRoute } from "./router";
+import { Provider } from 'react-redux';
+import {store} from './src/redux/store';
 
 const AuthStack = createStackNavigator();
 
@@ -18,6 +20,7 @@ export default function App() {
   // const routing = useRoute(false);
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <AuthStack.Navigator>
         <AuthStack.Screen
@@ -43,5 +46,6 @@ export default function App() {
         />
       </AuthStack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }

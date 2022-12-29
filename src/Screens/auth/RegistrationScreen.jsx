@@ -12,8 +12,10 @@ import {
   TouchableWithoutFeedback,
   Button
 } from "react-native";
+import { authSignUpUser } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
 import colors from "../../../theme";
-import { useFonts } from "expo-font";
+
 
 const initialState = {
   login: "",
@@ -23,12 +25,7 @@ const initialState = {
 
 export default function RegistrationScreen({navigation}) {
   const [state, setState] = useState(initialState);
-
-  // const [fontLoaded] = useFonts({
-  //   Regular: require("../../assets/fonts/RobotoRegular.ttf"),
-  //   Medium: require("../../assets/fonts/RobotoMedium.ttf"),
-  // });
-  // if (!fontLoaded) return null;
+  const dispatch = useDispatch();
 
   const addInputValue = (name, value) => {
     setState((prevState) => ({ ...prevState, [name]: value }));
@@ -36,7 +33,8 @@ export default function RegistrationScreen({navigation}) {
 
   const handleSubmit = () => {
     Keyboard.dismiss();
-    console.log(state);
+    dispatch(authSignUpUser(state));
+    // console.log(state);
     setState(initialState);
   };
 
