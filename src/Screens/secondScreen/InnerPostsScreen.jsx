@@ -71,10 +71,12 @@ export default function InnerPostsScreen({ navigation, route }) {
                 </View>
                 <View style={styles.buttonBox}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Comment", {
-                      uri: item.photo,
-                      postId: item.id
-                    })}
+                    onPress={() =>
+                      navigation.navigate("Comment", {
+                        uri: item.photo,
+                        postId: item.id,
+                      })
+                    }
                     activeOpacity={0.8}
                   >
                     <Feather

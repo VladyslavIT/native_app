@@ -87,7 +87,7 @@ export default function InfoScreen({ navigation, route }) {
     uploadPhotoToServer();
     navigation.navigate("InnerPosts", { location, photo, about });
   };
-  
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
