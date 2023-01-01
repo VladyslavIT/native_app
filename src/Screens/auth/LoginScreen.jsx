@@ -10,24 +10,20 @@ import {
   Platform,
   Keyboard,
   TouchableWithoutFeedback,
-  Button
+  Button,
 } from "react-native";
 import colors from "../../../theme";
-import { useFonts } from "expo-font";
+import { useDispatch } from "react-redux";
+import { authSignInUser } from "../../redux/auth/authOperations";
 
 const initialState = {
   email: "",
   password: "",
 };
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({ navigation }) {
   const [state, setState] = useState(initialState);
-
-  // const [fontLoaded] = useFonts({
-  //   Regular: require("../../assets/fonts/RobotoRegular.ttf"),
-  //   Medium: require("../../assets/fonts/RobotoMedium.ttf"),
-  // });
-  // if (!fontLoaded) return null;
+  const dispatch = useDispatch();
 
   const addInputValue = (name, value) => {
     setState((prevState) => ({ ...prevState, [name]: value }));
@@ -35,7 +31,7 @@ export default function LoginScreen({navigation}) {
 
   const handleSubmit = () => {
     Keyboard.dismiss();
-    console.log(state);
+    dispatch(authSignInUser(state));
     setState(initialState);
   };
 
@@ -75,9 +71,17 @@ export default function LoginScreen({navigation}) {
               activeOpacity={0.8}
               style={styles.button}
             >
-              <Text onPress={() => navigation.navigate('Home')} style={styles.buttonText}>Ввійти</Text>
+              <Text
+                onPress={() => navigation.navigate("Home")}
+                style={styles.buttonText}
+              >
+                Ввійти
+              </Text>
             </TouchableOpacity>
-            <Text onPress={() => navigation.navigate('Register')} style={styles.textSingUp}>
+            <Text
+              onPress={() => navigation.navigate("Register")}
+              style={styles.textSingUp}
+            >
               Немає акаунта? Зареєструватися
             </Text>
           </View>

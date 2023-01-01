@@ -10,15 +10,35 @@ import {
 import { Entypo, SimpleLineIcons, Feather } from "@expo/vector-icons";
 import colors from "../../../theme";
 import { useEffect, useState } from "react";
+import { authSignOutUser } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
+import { db } from "../../firebase/config";
+import { getDocs, collection } from "firebase/firestore";
 
 export default function InnerPostsScreen({ navigation, route }) {
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+
+  const getAllPosts = async () => {
+    let posts = [];
+    try {
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((doc) => {
+        posts.push({ ...doc.data(), id: doc.id });
+      });
+      setData(posts);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
-    if (route.params) {
-      setData((prevState) => [...prevState, route.params]);
-    }
-  }, [route.params]);
+    getAllPosts();
+  }, []);
+
+  const logOut = async () => {
+    dispatch(authSignOutUser());
+  };
 
   return (
     <>
@@ -28,7 +48,12 @@ export default function InnerPostsScreen({ navigation, route }) {
       >
         <View style={styles.box}>
           <View style={{ alignSelf: "flex-end" }}>
-            <Entypo name="log-out" size={24} color={colors.secondaryText} />
+            <Entypo
+              name="log-out"
+              size={24}
+              color={colors.secondaryText}
+              onPress={logOut}
+            />
           </View>
           <Text style={styles.text}>PostsScreen</Text>
 
@@ -46,7 +71,10 @@ export default function InnerPostsScreen({ navigation, route }) {
                 </View>
                 <View style={styles.buttonBox}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Comment")}
+                    onPress={() => navigation.navigate("Comment", {
+                      uri: item.photo,
+                      postId: item.id
+                    })}
                     activeOpacity={0.8}
                   >
                     <Feather

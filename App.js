@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useRoute } from "./router";
 import { Provider } from 'react-redux';
 import {store} from './src/redux/store';
+import Main from './src/components/Main';
 
 const AuthStack = createStackNavigator();
 
@@ -21,7 +22,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-    <NavigationContainer>
+    {/* <NavigationContainer>
       <AuthStack.Navigator>
         <AuthStack.Screen
           options={{
@@ -45,7 +46,8 @@ export default function App() {
           component={Home}
         />
       </AuthStack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer> */}
+    <Main/>
     </Provider>
   );
 }

@@ -34,7 +34,6 @@ export default function RegistrationScreen({navigation}) {
   const handleSubmit = () => {
     Keyboard.dismiss();
     dispatch(authSignUpUser(state));
-    // console.log(state);
     setState(initialState);
   };
 

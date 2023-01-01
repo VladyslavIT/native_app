@@ -10,15 +10,21 @@ import {
   Keyboard,
   TextInput,
 } from "react-native";
+import { storage, db } from "../../firebase/config";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 import * as Location from "expo-location";
 import colors from "../../../theme";
 
 export default function InfoScreen({ navigation, route }) {
-  const [about, setAbout] = useState('');
+  const [about, setAbout] = useState("");
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [photo, setPhoto] = useState(route.params.photo);
+
+  const { userId, nickname } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!photo) {
@@ -46,12 +52,42 @@ export default function InfoScreen({ navigation, route }) {
     text = JSON.stringify(location);
   }
 
+  const uploadPhotoToServer = async () => {
+    try {
+      const response = await fetch(photo);
+      const file = await response.blob();
+      const uniquePostId = Date.now().toString();
+      const photoRef = ref(storage, `${uniquePostId}`);
+      uploadBytes(photoRef, file).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          uploadPostToServer(url);
+        });
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const uploadPostToServer = async (url) => {
+    try {
+      const createPost = await addDoc(collection(db, "users"), {
+        photo: url,
+        nickname,
+        location: location.coords,
+        userId,
+        timeStamp: serverTimestamp(),
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const createPost = () => {
     Keyboard.dismiss();
-    navigation.navigate("InnerPosts", { location, photo, about});
+    uploadPhotoToServer();
+    navigation.navigate("InnerPosts", { location, photo, about });
   };
-
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
