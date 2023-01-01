@@ -10,7 +10,6 @@ import {
   Platform,
   Keyboard,
   TouchableWithoutFeedback,
-  Button
 } from "react-native";
 import { authSignUpUser } from "../../redux/auth/authOperations";
 import { useDispatch } from "react-redux";
