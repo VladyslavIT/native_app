@@ -1,7 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
 import RegistrationScreen from "./src/Screens/auth/RegistrationScreen";
 import LoginScreen from "./src/Screens/auth/LoginScreen";
 import PostsScreen from "./src/Screens/mainScreen/PostsScreen";
