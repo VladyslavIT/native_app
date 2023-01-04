@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "native",
-    "slug": "native",
+    "slug": "native-app",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -24,10 +24,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.vladyslavit.nativeapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "63eb3aab-b201-4fb6-81e6-3962d1d33de4"
+      }
+    },
+    "owner": "vladyslavit"
   }
 }

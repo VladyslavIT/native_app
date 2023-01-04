@@ -86,6 +86,9 @@ export default function InfoScreen({ navigation, route }) {
     Keyboard.dismiss();
     uploadPhotoToServer();
     navigation.navigate("InnerPosts", { location, photo, about });
+    setAbout('');
+    setLocation(null);
+    setPhoto(null);
   };
 
   return (
