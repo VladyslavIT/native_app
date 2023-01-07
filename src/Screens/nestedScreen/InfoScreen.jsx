@@ -27,12 +27,6 @@ export default function InfoScreen({ navigation, route }) {
   const { userId, nickname } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!photo) {
-      navigation.navigate("Camera", { photo });
-    }
-  }, [photo]);
-
-  useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -75,6 +69,7 @@ export default function InfoScreen({ navigation, route }) {
         nickname,
         location: location.coords,
         userId,
+        about,
         timeStamp: serverTimestamp(),
       });
     } catch (error) {
@@ -83,8 +78,9 @@ export default function InfoScreen({ navigation, route }) {
   };
 
   const createPost = () => {
-    Keyboard.dismiss();
+    Keyboard.dismiss(); 
     uploadPhotoToServer();
+    console.log(about);
     navigation.navigate("InnerPosts", { location, photo, about });
     setAbout('');
     setLocation(null);

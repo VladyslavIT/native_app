@@ -65,7 +65,7 @@ export default function InnerPostsScreen({ navigation, route }) {
                 <View style={styles.photoBox}>
                   <Image
                     source={{ uri: item.photo }}
-                    style={{ width: 300, height: 200 }}
+                    style={{ width: 300, height: 200, borderRadius: 8 }}
                   />
                   <Text>{item.about}</Text>
                 </View>

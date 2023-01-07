@@ -15,14 +15,13 @@ import { authSignUpUser } from "../../redux/auth/authOperations";
 import { useDispatch } from "react-redux";
 import colors from "../../../theme";
 
-
 const initialState = {
   login: "",
   email: "",
   password: "",
 };
 
-export default function RegistrationScreen({navigation}) {
+export default function RegistrationScreen({ navigation }) {
   const [state, setState] = useState(initialState);
   const dispatch = useDispatch();
 
@@ -32,8 +31,26 @@ export default function RegistrationScreen({navigation}) {
 
   const handleSubmit = () => {
     Keyboard.dismiss();
-    dispatch(authSignUpUser(state));
-    setState(initialState);
+    let isValid = true;
+    if (!state.login) {
+      alert("Введіть логін");
+      isValid = false;
+      return;
+    } 
+     if (!state.email.match(/\S+@\S+/)) {
+      alert("Введіть коректну електронну пошту");
+      isValid = false;
+      return;
+    } 
+     if (state.password.length < 6) {
+      alert("Пароль має бути більше 6 символів");
+      isValid = false;
+      return;
+    }
+    if (isValid) {
+      dispatch(authSignUpUser(state));
+      setState(initialState);
+    }
   };
 
   return (
@@ -79,9 +96,19 @@ export default function RegistrationScreen({navigation}) {
               activeOpacity={0.8}
               style={styles.button}
             >
-              <Text onPress={() => navigation.navigate('Home')} style={styles.buttonText}>Зареєструватися</Text>
+              <Text
+                onPress={handleSubmit}
+                style={styles.buttonText}
+              >
+                Зареєструватися
+              </Text>
             </TouchableOpacity>
-            <Text onPress={() => navigation.navigate('Login')} style={styles.textLogIn}>Вже є акаунт? Ввійти</Text>
+            <Text
+              onPress={() => navigation.navigate("Login")}
+              style={styles.textLogIn}
+            >
+              Вже є акаунт? Ввійти
+            </Text>
           </View>
         </TouchableWithoutFeedback>
       </ImageBackground>
@@ -144,9 +171,9 @@ const styles = StyleSheet.create({
   },
   textLogIn: {
     marginBottom: 78,
-    textAlign: 'center',
+    textAlign: "center",
     color: colors.link,
-    fontFamily: 'Regular',
-    backgroundColor: 'transparent',
+    fontFamily: "Regular",
+    backgroundColor: "transparent",
   },
 });

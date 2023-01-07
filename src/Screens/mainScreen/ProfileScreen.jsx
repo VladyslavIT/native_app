@@ -55,6 +55,7 @@ export default function ProfileScreen({ navigation }) {
               <View style={styles.post}>
                 <Image source={{ uri: item.photo }} style={styles.image} />
                 <View style={styles.wrapper}>
+                <Text style={styles.about}>{item.about}</Text>
                   <View style={styles.buttonBox}>
                     <TouchableOpacity
                       onPress={() =>
@@ -113,6 +114,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     backgroundColor: colors.primaryBg,
   },
+  about: {
+    textAlign: 'center'
+  },
   text: {
     marginBottom: 24,
     alignSelf: "center",
@@ -128,7 +132,6 @@ const styles = StyleSheet.create({
   image: {
     width: 300,
     height: 200,
-    marginBottom: 8,
     borderRadius: 8,
   },
   buttonBox: {

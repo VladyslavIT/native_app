@@ -7,12 +7,26 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Camera } from "expo-camera";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import colors from "../../../theme";
 
 export default function CreatePostsScreen({ navigation }) {
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState("");
+  const [cameraPermission, setCameraPermission] = useState();
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setCameraPermission(status === "granted");
+    })();
+  }, []);
+
+  if (cameraPermission === undefined) {
+    alert("Зачекайте");
+  } else if (!cameraPermission) {
+    alert("У доступі до камери відмовлено. Спробуйте знову");
+  }
 
   const takePhoto = async () => {
     const photo = await camera.takePictureAsync();

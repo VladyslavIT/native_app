@@ -31,8 +31,21 @@ export default function LoginScreen({ navigation }) {
 
   const handleSubmit = () => {
     Keyboard.dismiss();
-    dispatch(authSignInUser(state));
-    setState(initialState);
+    let isValid = true;
+    if (!state.email.match(/\S+@\S+/)) {
+      alert("Введіть коректну електронну пошту");
+      isValid = false;
+      return;
+    } 
+    if (state.password.length < 6) {
+      alert("Пароль має бути більше 6 символів");
+      isValid = false;
+      return;
+    }
+    if (isValid) {
+      dispatch(authSignInUser(state));
+      setState(initialState);
+    }
   };
 
   return (
@@ -72,7 +85,7 @@ export default function LoginScreen({ navigation }) {
               style={styles.button}
             >
               <Text
-                onPress={() => navigation.navigate("Home")}
+                onPress={handleSubmit}
                 style={styles.buttonText}
               >
                 Ввійти
